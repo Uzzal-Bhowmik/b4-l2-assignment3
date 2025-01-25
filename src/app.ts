@@ -19,7 +19,8 @@ app.use(
 // application routes
 app.use("/api", RootRouter);
 
-app.use("/", (req: Request, res: Response) => {
+// root route
+app.get("/", (req: Request, res: Response) => {
   res.json({
     message: "Server is running",
   });

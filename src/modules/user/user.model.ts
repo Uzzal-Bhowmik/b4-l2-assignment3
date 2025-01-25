@@ -53,4 +53,10 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
+// Exclude users with isDeleted to true
+userSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 export const User = model<TUser>("User", userSchema);

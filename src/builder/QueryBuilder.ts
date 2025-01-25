@@ -23,12 +23,12 @@ class QueryBuilder<T> {
   }
 
   // Filter : Exact match
-  filter(filterField: string) {
+  filter(filterField?: string) {
     let matchQuery = { ...this.baseQuery };
 
     if (matchQuery.filter) {
       matchQuery = {
-        [filterField]: matchQuery.filter,
+        [filterField as string]: matchQuery.filter,
         ...matchQuery,
       };
     }
