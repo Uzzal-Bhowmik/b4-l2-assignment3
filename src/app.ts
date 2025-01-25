@@ -3,6 +3,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import notFound from "./middlewares/notFound";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
+import { RootRouter } from "./routes";
 
 const app: Application = express();
 
@@ -16,7 +17,7 @@ app.use(
 );
 
 // application routes
-// app.use("/api/v1")
+app.use("/api", RootRouter);
 
 app.use("/", (req: Request, res: Response) => {
   res.json({

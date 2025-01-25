@@ -4,6 +4,7 @@ import handleZodError from "../errors/handleZodError";
 import handleMongooseValidationError from "../errors/handleMongooseValidationError";
 import handleDuplicateError from "../errors/handleDuplicateError";
 import config from "../config";
+import AppError from "../errors/AppError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // Default error properties
@@ -45,6 +46,20 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = handleDuplicateError(err).statusCode;
     message = handleDuplicateError(err).message;
     error = handleDuplicateError(err).error;
+  }
+
+  // Checks if err is an instance of AppError/Error
+  else if (err instanceof AppError) {
+    statusCode = err.statusCode;
+    message = err.message;
+    error = {
+      errorSources: [
+        {
+          path: "",
+          message: err?.message,
+        },
+      ],
+    };
   } else if (err instanceof Error) {
     message = err?.message;
     error = {
