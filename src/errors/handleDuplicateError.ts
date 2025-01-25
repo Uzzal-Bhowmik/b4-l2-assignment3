@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StatusCodes } from "http-status-codes";
 import { TGenericErrorResponse } from "../interface/errors";
 
@@ -8,7 +9,9 @@ const handleDuplicateError = (err: any): TGenericErrorResponse => {
   const errorSources = [
     {
       path: "",
-      message: `${duplicateKey} already exists!` || "Duplicate key error",
+      message: duplicateKey
+        ? `${duplicateKey} already exists!`
+        : "Duplicate key error",
     },
   ];
 

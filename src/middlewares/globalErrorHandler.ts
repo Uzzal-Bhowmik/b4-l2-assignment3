@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
 import handleZodError from "../errors/handleZodError";
@@ -5,6 +7,7 @@ import handleMongooseValidationError from "../errors/handleMongooseValidationErr
 import handleDuplicateError from "../errors/handleDuplicateError";
 import config from "../config";
 import AppError from "../errors/AppError";
+import handleMongooseCastError from "../errors/handleMongooseCastError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // Default error properties
@@ -36,9 +39,9 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   // Mongoose case error
   else if (err?.name === "CastError") {
-    statusCode = handleMongooseValidationError(err).statusCode;
-    message = handleMongooseValidationError(err).message;
-    error = handleMongooseValidationError(err).error;
+    statusCode = handleMongooseCastError(err).statusCode;
+    message = handleMongooseCastError(err).message;
+    error = handleMongooseCastError(err).error;
   }
 
   // Duplicate key error

@@ -20,3 +20,5 @@ const handleMongooseCastError = (
     },
   };
 };
+
+export default handleMongooseCastError;

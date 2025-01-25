@@ -1,6 +1,5 @@
 import { StatusCodes } from "http-status-codes";
 import AppError from "../../errors/AppError";
-import { User } from "../user/user.model";
 import { TBlog } from "./blog.interface";
 import { Blog } from "./blog.model";
 import { JwtPayload } from "jsonwebtoken";
