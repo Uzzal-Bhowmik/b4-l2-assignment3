@@ -30,4 +30,10 @@ const blogSchema = new Schema<TBlog>(
   },
 );
 
+// Exclude blogs with isDeleted to true
+blogSchema.pre("find", async function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 export const Blog = model<TBlog>("Blog", blogSchema);
