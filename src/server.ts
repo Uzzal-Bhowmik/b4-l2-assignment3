@@ -3,12 +3,14 @@ import mongoose from "mongoose";
 import config from "./config";
 import app from "./app";
 import ip from "ip";
+import createAdmin from "./utils/createAdmin";
 
 let server: Server;
 
 async function main() {
   try {
     await mongoose.connect(config.db_url as string);
+    createAdmin();
 
     server = app.listen(config.port, () => {
       console.log(`Server is running on -> ${ip.address()}:${config.port}`);
