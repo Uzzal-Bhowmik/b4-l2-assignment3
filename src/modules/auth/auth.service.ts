@@ -3,9 +3,9 @@ import AppError from "../../errors/AppError";
 import { User } from "../user/user.model";
 import { TLogin, TRegister } from "./auth.interface";
 import bcrypt from "bcrypt";
-import { generateToken } from "./auth.utils";
 import config from "../../config";
 import { JwtPayload } from "jsonwebtoken";
+import { generateToken } from "./auth.utils";
 
 const register = async (payload: TRegister) => {
   const resultRegisteringUser = await User.create(payload);

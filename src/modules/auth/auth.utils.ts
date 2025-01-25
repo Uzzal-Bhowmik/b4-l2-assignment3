@@ -6,13 +6,7 @@ export const generateToken = (
   secret: string,
   expiresIn: any,
 ) => {
-  const token = jwt.sign(
-    {
-      data: jwtPayload,
-    },
-    secret,
-    { expiresIn },
-  );
+  const token = jwt.sign(jwtPayload, secret, { expiresIn });
 
   return token;
 };

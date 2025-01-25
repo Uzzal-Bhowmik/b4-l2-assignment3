@@ -35,11 +35,23 @@ const insertBlogIntoDB = async (user: JwtPayload, payload: TBlog) => {
   return result;
 };
 
-const updateBlogIntoDB = async (blogId: string, payload: Partial<TBlog>) => {
+const updateBlogIntoDB = async (
+  loggedInUser: JwtPayload,
+  blogId: string,
+  payload: Partial<TBlog>,
+) => {
   const isBlogExists = await Blog.findById(blogId);
 
   if (!isBlogExists) {
     throw new AppError(StatusCodes.NOT_FOUND, "Blog not found!");
+  }
+
+  // Check if the blog is by this user
+  if (isBlogExists.author.toString() !== loggedInUser.userId) {
+    throw new AppError(
+      StatusCodes.UNAUTHORIZED,
+      "You do not have authorization to update this blog!!",
+    );
   }
 
   const result = await Blog.findByIdAndUpdate(blogId, payload, {

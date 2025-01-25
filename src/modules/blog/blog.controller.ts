@@ -32,8 +32,13 @@ const createBlog = catchAsync(async (req, res) => {
 const updateBlog = catchAsync(async (req, res) => {
   const blogId = req.params.id;
   const payload = req.body;
+  const loggedInUser = req.user;
 
-  const result = await BlogServices.updateBlogIntoDB(blogId, payload);
+  const result = await BlogServices.updateBlogIntoDB(
+    loggedInUser,
+    blogId,
+    payload,
+  );
 
   sendResponse(res, {
     success: true,
