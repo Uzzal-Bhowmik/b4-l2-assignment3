@@ -5,7 +5,10 @@ import { User } from "./user.model";
 import { Blog } from "../blog/blog.model";
 
 const fetchAllUsersFromDB = async (baseQuery: Record<string, unknown>) => {
-  const userFindQuery = new QueryBuilder(User.find(), baseQuery).filter();
+  const userFindQuery = new QueryBuilder(
+    User.find().select("-password"),
+    baseQuery,
+  ).filter();
 
   const result = await userFindQuery.modelQuery;
 
